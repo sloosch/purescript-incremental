@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "incremental dom for purescript",
   "main": "index.js",
+  "private" : true,
   "dependencies": {
     "incremental-dom": "^0.2.0"
   },

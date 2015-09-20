@@ -4,6 +4,10 @@
   "moduleType": [
     "node"
   ],
+  "keywords": [
+    "purescript",
+    "incremntal-dom"
+  ],
   "ignore": [
     "**/.*",
     "node_modules",
