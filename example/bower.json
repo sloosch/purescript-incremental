@@ -1,0 +1,20 @@
+{
+  "name": "purescript-incremental-example",
+  "version": "0.0.0",
+  "private": true,
+  "authors": [
+    "sloosch <simon@sloosch.de>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "purescript-dom": "~0.2.6",
+    "purescript-signal": "~4.1.0"
+  }
+}
