@@ -23,3 +23,9 @@ see [example project](example) to get started.
 ````
 bower install purescript-incremental
 ````
+
+## Usage
+do not forget to install incremental-dom via npm before trying to compile your project
+````
+npm install incremental-dom
+````
