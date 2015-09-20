@@ -2,10 +2,6 @@
 
 [incremental-dom](https://github.com/google/incremental-dom) for purescript inspired by [elm-html](https://github.com/evancz/elm-html)
 
-````
-bower install purescript-incremental
-````
-
 ````purescript
 taskListFooter :: Channel Action -> AppState -> IElement
 taskListFooter chan state =
@@ -21,3 +17,9 @@ taskListFooter chan state =
 ````
 
 see [example project](example) to get started.
+
+## Installation
+
+````
+bower install purescript-incremental
+````
