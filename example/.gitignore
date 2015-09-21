@@ -4,3 +4,4 @@
 /.psci*
 .DS_Store
 /src/.webpack.js
+.browserify-cache.json

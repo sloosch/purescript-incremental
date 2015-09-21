@@ -41,14 +41,18 @@ exports.element = function (tagName) {
                     var unfoldedAttrs = unfoldAttributes(attrs);
                     var args = [tagName, unfoldedAttrs.key, unfoldedAttrs.statics].concat(unfoldedAttrs.attributes);
                     IDom.elementOpen.apply(null, args);
-                    children.forEach(function (f) {
-                        f();
-                    });
+                    children();
                     IDom.elementClose(tagName);
                 };
             };
         };
 };
+
+exports.iempty = function() {
+    return function() {
+
+    }
+}
 
 exports.text = function(text) {
     return function() {
