@@ -111,7 +111,7 @@ placeholder =
 
 target :: String -> IAttribute
 target =
-    stringAttribute "_target" true
+    stringAttribute "target" true
 
 width :: String -> IAttribute
 width =

@@ -9,7 +9,7 @@ import Signal
 import Action
 
 todoFilter :: Channel Action -> String -> IElement
-todoFilter chan filterStr = do
+todoFilter chan filterStr =
     div' [class' "todo-filter"] do
         input [
             placeholder "Enter filter",

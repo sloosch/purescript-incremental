@@ -8,7 +8,7 @@ import Incremental.Attributes
 import Action
 
 taskAdder :: Channel Action -> String -> IElement
-taskAdder chan val = do
+taskAdder chan val =
     div' [class' "task-adder"] do
         input [type' "text", value val, onInput' $ send chan <<< ChangedInput <<< targetValue] iempty
         button [type' "button", onClick $ send chan $ Add val] $ text "Add todo"

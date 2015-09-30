@@ -48,12 +48,6 @@ exports.element = function (tagName) {
         };
 };
 
-exports.iempty = function() {
-    return function() {
-
-    }
-}
-
 exports.text = function(text) {
     return function() {
         IDom.text(text);

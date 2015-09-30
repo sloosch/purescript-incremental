@@ -6,16 +6,16 @@ import Incremental.DOM
 import Incremental.Elements
 import Incremental.Attributes
 import Action
-import Data.Array
+import Data.List (List())
 import Store (Task())
-import Data.Foldable
+import Data.Foldable (traverse_)
 
-taskList :: Channel Action -> Array Task -> IElement
-taskList chan tasks = do
-    ul [class' "task-list"] $ for_ tasks $ taskItem chan
+taskList :: Channel Action -> List Task -> IElement
+taskList chan tasks =
+    ul [class' "task-list"] $ traverse_ (taskItem chan) tasks
 
 taskItem :: Channel Action -> Task -> IElement
-taskItem chan task = do
+taskItem chan task =
     li [key $ show task.taskId, class' "task-item"] do
         input [type' "checkbox", checked task.completed, onClick $ send chan $ Check task.taskId (not task.completed)] iempty
         taskEditableLabel chan task
@@ -23,7 +23,7 @@ taskItem chan task = do
 
 taskEditableLabel :: Channel Action -> Task -> IElement
 taskEditableLabel chan task
-    | task.editing = do
+    | task.editing =
         input [
             type' "text",
             value task.description,
@@ -31,5 +31,5 @@ taskEditableLabel chan task
             onInput' $ send chan <<< ChangeDescription task.taskId <<< targetValue,
             onBlur $ send chan $ Edit task.taskId false
         ] iempty
-    | otherwise = do
+    | otherwise =
         label [class' "task-label", onDoubleClick $ send chan $ Edit task.taskId true] $ text task.description

@@ -6,15 +6,15 @@ import Incremental.DOM
 import Incremental.Elements
 import Incremental.Attributes
 import Action
-import Store (AppState())
-import Data.Array (filter, length)
+import Store (Task())
+import Data.List (filter, length, List())
 
-taskListFooter :: Channel Action -> AppState -> IElement
-taskListFooter chan state = do
+taskListFooter :: Channel Action -> List Task -> IElement
+taskListFooter chan tasks =
     div' [class' "task-list-footer"] do
         button [type' "button", onClick $ send chan DeleteCompleted] $ text "Remove completed"
         div' [class' "task-stats"] do
-            span' [class' "total"] $ text $ "Total: " ++ show (length state.todos)
-            span' [class' "completed"] $ text $ "Completed: " ++ show (length completedTodos)
+            span' [class' "total"] $ text $ "Total: " ++ show (length tasks)
+            span' [class' "completed"] $ text $ "Completed: " ++ show (length completedTasks)
     where
-        completedTodos = filter (\t -> t.completed) state.todos
+        completedTasks = filter (\t -> t.completed) tasks

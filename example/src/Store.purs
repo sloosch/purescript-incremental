@@ -2,7 +2,9 @@ module Store (Task(), AppState(), initialAppState, handleAction) where
 
 import Action
 import Prelude
-import Data.Array
+import Data.Maybe
+import qualified Data.StrMap as SM
+import Data.Foldable (foldl)
 
 type Task = {
     taskId :: Int,
@@ -13,7 +15,7 @@ type Task = {
 
 type AppState = {
     inputVal :: String,
-    todos :: Array Task,
+    todos :: SM.StrMap Task,
     lastUid :: Int,
     filter :: String
 }
@@ -22,7 +24,7 @@ initialAppState :: AppState
 initialAppState =
     {
         inputVal : "",
-        todos : [],
+        todos : SM.empty,
         lastUid : 0,
         filter : ""
     }
@@ -44,32 +46,33 @@ handleAction action state =
             state
         Add description ->
             let uid = state.lastUid + 1
-                newTodos = (newTask uid description) : state.todos
+                newTodos = SM.insert (show uid) (newTask uid description) state.todos
             in
                 state {lastUid = uid, todos = newTodos, inputVal = ""}
         Check uid isCompleted ->
-            let changeTodo = \t -> if t.taskId == uid then t {completed = isCompleted} else t
-                newTodos = changeTodo <$> state.todos
+            let changeTodo = \t -> Just $ t {completed = isCompleted}
+                newTodos = SM.update changeTodo (show uid) state.todos
             in
                 state {todos = newTodos}
         Delete uid ->
-            let newTodos = filter (\t -> t.taskId /= uid) state.todos
+            let newTodos = SM.delete (show uid) state.todos
             in
                 state {todos = newTodos}
         ChangedInput input ->
             state {inputVal = input}
         DeleteCompleted ->
-            let newTodos = filter (\t -> not t.completed) state.todos
+            let changeTodo = \t -> if t.completed then Nothing else Just t
+                newTodos = foldl (flip (SM.update changeTodo)) state.todos (SM.keys state.todos)
             in
                 state {todos = newTodos}
         Edit uid isEditing ->
-            let changeTodo = \t -> if t.taskId == uid then t {editing = isEditing} else t
-                newTodos = changeTodo <$> state.todos
+            let changeTodo = \t -> Just $ t {editing = isEditing}
+                newTodos = SM.update changeTodo (show uid) state.todos
             in
                 state {todos = newTodos}
         ChangeDescription uid description ->
-            let changeTodo = \t -> if t.taskId == uid then t {description = description} else t
-                newTodos = changeTodo <$> state.todos
+            let changeTodo = \t -> Just $ t {description = description}
+                newTodos = SM.update changeTodo (show uid) state.todos
             in
                 state {todos = newTodos}
         ChangeFilter filterStr ->
