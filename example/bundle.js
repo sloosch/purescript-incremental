@@ -1584,7 +1584,7 @@ var PS = { };
           return Incremental_Elements["div'"]([ Incremental_Attributes["class'"]("task-list-footer") ])(function __do() {
               Incremental_Elements.button([ Incremental_Attributes["type'"]("button"), Incremental_Attributes.onClick(Signal_Channel.send(chan)(Action.DeleteCompleted.value)) ])(Incremental_DOM.text("Remove completed"))();
               return Incremental_Elements["div'"]([ Incremental_Attributes["class'"]("task-stats") ])(function __do() {
-                  Control_Bind[">=>"](Control_Monad_Eff.bindEff)(Incremental_Elements["span'"]([ Incremental_Attributes["class'"]("total") ]))(DOM_Node_Element.setClassName("dom-manipulation"))(Incremental_DOM.text("Total: " + Prelude.show(Prelude.showInt)(Data_List.length(tasks))))();
+                  Control_Bind[">=>"](Control_Monad_Eff.bindEff)(Incremental_Elements["span'"]([ Incremental_Attributes["class'"]("total") ]))(DOM_Node_Element.setClassName("override-class"))(Incremental_DOM.text("Total: " + Prelude.show(Prelude.showInt)(Data_List.length(tasks))))();
                   return Incremental_Elements["span'"]([ Incremental_Attributes["class'"]("completed") ])(Incremental_DOM.text("Completed: " + Prelude.show(Prelude.showInt)(Data_List.length(completedTasks))))();
               })();
           });
