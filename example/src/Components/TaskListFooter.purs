@@ -10,7 +10,6 @@ import Store (Task())
 import Control.Monad.Eff (Eff())
 import Data.List (filter, length, List())
 import qualified DOM.Node.Element as E
-import DOM.Node.Types (ElementId())
 import DOM
 import Control.Bind ((>=>))
 
