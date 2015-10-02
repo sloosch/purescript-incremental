@@ -25,7 +25,6 @@ renderAction chan action =
      runSignal $ foldp handleAction initialAppState action ~> todoList chan ~> patch ~> bind body
 
 main :: forall eff. Eff (dom :: DOM, idom :: IDOM, chan :: Chan | eff) Unit
-main =
-    do
-        c <- channel NoOp
-        renderAction c $ subscribe c
+main = do
+    c <- channel NoOp
+    renderAction c $ subscribe c

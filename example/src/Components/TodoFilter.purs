@@ -7,8 +7,9 @@ import Incremental.Attributes
 import Signal.Channel
 import Signal
 import Action
+import Control.Monad.Eff (Eff())
 
-todoFilter :: Channel Action -> String -> IElement
+todoFilter :: forall eff. Channel Action -> String -> Eff (idom :: IDOM | eff) DOMElement
 todoFilter chan filterStr =
     div' [class' "todo-filter"] do
         input [

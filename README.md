@@ -3,17 +3,18 @@
 [incremental-dom](https://github.com/google/incremental-dom) for purescript inspired by [elm-html](https://github.com/evancz/elm-html)
 
 ````purescript
-taskListFooter :: Channel Action -> AppState -> IElement
-taskListFooter chan state = do
+taskListFooter ::forall eff. Channel Action -> List Task -> Eff (idom :: IDOM, dom :: DOM | eff) DOMElement
+taskListFooter chan tasks =
     div' [class' "task-list-footer"] do
         button [type' "button", onClick $ send chan DeleteCompleted] $ text "Remove completed"
         div' [class' "task-stats"] do
-            span' [class' "total"] $ text $ "Total: " ++ show (length state.todos)
-            span' [class' "completed"] $ text $ "Completed: " ++ show (length completedTodos)
+            -- an element can be composed with any effects for an element e.g. DOM manipulations
+            span' [class' "total"] >=> DOMElement.setClassName "override-with-dom-manipulation" $ text $ "Total: " ++ show (length tasks)
+            span' [class' "completed"] $ text $ "Completed: " ++ show (length completedTasks)
     where
-        completedTodos = filter (\t -> t.completed) state.todos
-
+        completedTasks = filter (\t -> t.completed) tasks
 ````
+[full source code](example/src/Components/TaskListFooter.purs)
 
 see [example project](example) to get started.
 
@@ -23,8 +24,7 @@ see [example project](example) to get started.
 bower install purescript-incremental
 ````
 
-## Usage
-do not forget to install incremental-dom via npm before trying to compile your project
+Do not forget to install incremental-dom via npm before trying to compile your project
 ````
 npm install incremental-dom
 ````

@@ -42,7 +42,7 @@ exports.element = function (tagName) {
                     var args = [tagName, unfoldedAttrs.key, unfoldedAttrs.statics].concat(unfoldedAttrs.attributes);
                     IDom.elementOpen.apply(null, args);
                     children();
-                    IDom.elementClose(tagName);
+                    return IDom.elementClose(tagName);
                 };
             };
         };
@@ -50,7 +50,7 @@ exports.element = function (tagName) {
 
 exports.text = function(text) {
     return function() {
-        IDom.text(text);
+        return IDom.text(text);
     };
 };
 

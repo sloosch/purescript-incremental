@@ -10,13 +10,15 @@ import Store (AppState())
 import Data.List (filter)
 import qualified Data.StrMap as SM
 import Data.String (contains, length)
+import Control.Monad.Eff (Eff())
+import DOM
 
 import Components.TaskAdder
 import Components.TaskList
 import Components.TaskListFooter
 import Components.TodoFilter
 
-todoList :: Channel Action -> AppState -> IElement
+todoList :: forall eff. Channel Action -> AppState ->  Eff (idom :: IDOM, dom :: DOM | eff) DOMElement
 todoList chan state =
     div' [class' "todo-list"] do
         taskAdder chan state.inputVal
